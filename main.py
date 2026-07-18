@@ -59,3 +59,6 @@ def update(frame):
     #return pivot, m1,m2 positions
     line.set_data([0, x1, x2], [0, y1, y2])
     return line,
+
+ani = animation.FuncAnimation(fig, update, interval=10, blit=True)
+plt.show()
