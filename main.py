@@ -24,7 +24,7 @@ theta2 = (int(input("Starting angle2 in degrees?")))*(np.pi/180)
 #This just means it starts at rest (no initial velocity)
 thetadot1 = 0
 thetadot2 = 0
-dt = 0.001
+dt = 0.1
 
 def update(frame):
     global theta1, theta2, thetadot1, thetadot2
@@ -39,7 +39,7 @@ def update(frame):
     a = -(m1 +m2)*g*r1*np.sin(theta1) - m2*r1*r2*(thetadot2**2)*np.sin(theta1-theta2)
     b = (m1+m2)* (r1**2)
     c = m2*r1*r2*np.cos(theta1-theta2)
-    e = -m2*g*r2*np.sin(theta2) + m2*r1*r2*(thetadot1**2)*np.sin(theta1-theta2)
+    e = m2*g*r2*np.sin(theta2) + m2*r1*r2*(thetadot1**2)*np.sin(theta1-theta2)
     f = m2*(r2**2)
     h = m2*r1*r2*np.cos(theta1-theta2)
 
