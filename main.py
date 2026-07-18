@@ -2,7 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-
+fig, ax = plt.subplots(figsize=(6,6))
+ax.set_xlim(-3, 3)
+ax.set_ylim(-3, 3)
+ax.set_aspect('equal')
+line, = ax.plot([], [], 'o-', lw=2)
 
 gravity = input("What planet?")
 gravties = {
@@ -42,3 +46,6 @@ def update(frame):
     y1 = -r1*np.cos(theta1)
     x2 = r2* np.sin(theta2) + r1*np.sin(theta1)
     y2 = -r2*np.cos(theta2) - r1*np.cos(theta1)
+
+    line.set_data([0, x1, x2], [0, y1, y2])
+    return line,
