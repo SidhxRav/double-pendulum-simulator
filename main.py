@@ -87,8 +87,9 @@ def update(frame):
 def on_close(event):
     #error clac
     if energies:
-        error = ((max(energies) - min(energies))) / abs(expected_value) * 100
-        print(f"Energy error: {error:.4f}%")
+        error1 = ((max(energies) - expected_value)) / abs(expected_value) * 100
+        error2 = ((min(energies) - expected_value)) / abs(expected_value) * 100
+        print(f"Energy error: +{abs(error1):.4f}% and -{abs(error2):.4f}%")
         print(f"Max energy: {max(energies):.4f}")
         print(f"Min energy: {min(energies):.4f}")
         print(f"Samples collected: {len(energies)}")
