@@ -56,6 +56,12 @@ def update(frame):
     theta2 += thetadot2*dt
     theta1 += thetadot1*dt
 
+    #Getting the energies to see if energy is conserved
+    ek = 0.5*(m1+m2)*(r1*thetadot1)**2 + 0.5*m2*(r2*thetadot2)**2 + m2*r1*r2*thetadot1*thetadot2*np.cos(theta1-theta2)
+    ep = -(m1+m2)*g*r1*np.cos(theta1) - m2*g*r2*np.cos(theta2)
+
+    print(ek+ep)
+
     #return pivot, m1,m2 positions
     line.set_data([0, x1, x2], [0, y1, y2])
     return line,
