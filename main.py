@@ -25,7 +25,26 @@ theta2 = (int(input("Starting angle2 in degrees?")))*(np.pi/180)
 thetadot1 = 0
 thetadot2 = 0
 dt = 0.1
+#energy list to calculate percentage error
+energies = []
+# calculate energy function which i need to put up here cuz then i call it for the expected value
+def Calculate_energy(g, m1, m2, r1, r2, theta1, theta2, thetadot1,thetadot2):
+    # KE of mass 1
+    ek1 = 0.5 * m1 * (r1 * thetadot1)**2
 
+    # KE of mass 2 (has cross term because position depends on both angles)
+    ek2 = 0.5 * m2 * ((r1 * thetadot1)**2 + (r2 * thetadot2)**2 + 2 * r1 * r2 * thetadot1 * thetadot2 * np.cos(theta1 - theta2))
+
+    # PE of mass 1
+    ep1 = m1 * g * r1 * np.cos(theta1)
+
+    # PE of mass 2
+    ep2 = m2 * g * (r1 * np.cos(theta1) + r2 * np.cos(theta2))
+
+    total_energy = ek1 + ek2 - ep1 + ep2
+    return total_energy
+#expected value for error calc
+expected_value = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2)
 def update(frame):
     global theta1, theta2, thetadot1, thetadot2
 
@@ -55,17 +74,22 @@ def update(frame):
     #Use euler integration again to find theta dots
     theta2 += thetadot2*dt
     theta1 += thetadot1*dt
-
-    #Getting the energies to see if energy is conserved
-    ek = 0.5*(m1+m2)*(r1*thetadot1)**2 + 0.5*m2*(r2*thetadot2)**2 + m2*r1*r2*thetadot1*thetadot2*np.cos(theta1-theta2)
-    ep = -(m1+m2)*g*r1*np.cos(theta1) - m2*g*r2*np.cos(theta2)
-
-    # Ensure that ek+ep is constant
-    print(ek+ep)
+    # Ensure that energies is constant
+    total_energy = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2 )
+    print(total_energy)
+    energies.appent(total_energy)
 
     #return pivot, m1,m2 positions
     line.set_data([0, x1, x2], [0, y1, y2])
     return line,
+
+def on_close(event):
+    if energies:
+        error = ((max(energies) - min(energies))/2) / abs(expected_value) * 100
+        print(f"Energy error: {error:.4f}%")
+        print(f"Max energy: {max(energies):.4f}")
+        print(f"Min energy: {min(energies):.4f}")
+        print(f"Samples collected: {len(energies)}")
 
 ani = animation.FuncAnimation(fig, update, interval=10, blit=True)
 plt.show()
