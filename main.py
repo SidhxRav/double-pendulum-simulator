@@ -91,5 +91,6 @@ def on_close(event):
         print(f"Min energy: {min(energies):.4f}")
         print(f"Samples collected: {len(energies)}")
 
+fig.canvas.mpl_connect('close_event', on_close)
 ani = animation.FuncAnimation(fig, update, interval=10, blit=True)
 plt.show()
