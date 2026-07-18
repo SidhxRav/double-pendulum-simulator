@@ -16,3 +16,22 @@ theta2 = (int(input("Starting angle2 in degrees?")))*(np.pi/180)
 thetadot1 = 0
 thetadot2 = 0
 dt = 0.01
+
+def update(frame):
+    global theta1, theta2, thetadot1, thetadot2
+    a = -(m1 +m2)*g*r1*np.sin(theta1) - m2*r1*r2*(thetadot2**2)*np.sin(theta1-theta2)
+    b = (m1+m2)* (r1**2)
+    c = m2*r1*r2*np.cos(theta1-theta2)
+    e = -m2*g*r2*np.sin(theta2) + m2*r1*r2*(thetadot1**2)*np.sin(theta1-theta2)
+    f = m2*(r2**2)
+    h = m2*r1*r2*np.cos(theta1-theta2)
+
+    thetaddot2 = (e-((a*h)/b))/(f-((c*h)/b))
+
+    thetaddot1 = (a/b) - ((c/b)*thetaddot2)
+    
+    thetadot2 += thetaddot2*dt
+    thetadot1 += thetaddot1*dt
+
+    theta2 += thetadot2*dt
+    theta1 += thetadot1*dt
