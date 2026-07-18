@@ -77,7 +77,7 @@ def update(frame):
     # Ensure that energies is constant
     total_energy = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2 )
     print(total_energy)
-    energies.appent(total_energy)
+    energies.append(total_energy)
 
     #return pivot, m1,m2 positions
     line.set_data([0, x1, x2], [0, y1, y2])
