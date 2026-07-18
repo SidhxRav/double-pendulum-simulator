@@ -83,7 +83,9 @@ def update(frame):
     line.set_data([0, x1, x2], [0, y1, y2])
     return line,
 
+
 def on_close(event):
+    #error clac
     if energies:
         error = ((max(energies) - min(energies))/2) / abs(expected_value) * 100
         print(f"Energy error: {error:.4f}%")
