@@ -41,7 +41,7 @@ def Calculate_energy(g, m1, m2, r1, r2, theta1, theta2, thetadot1,thetadot2):
     # PE of mass 2
     ep2 = m2 * g * (r1 * np.cos(theta1) + r2 * np.cos(theta2))
 
-    total_energy = ek1 + ek2 - ep1 + ep2
+    total_energy = ek1 + ek2 - ep1 - ep2
     return total_energy
 #expected value for error calc
 expected_value = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2)
