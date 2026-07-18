@@ -60,6 +60,7 @@ def update(frame):
     ek = 0.5*(m1+m2)*(r1*thetadot1)**2 + 0.5*m2*(r2*thetadot2)**2 + m2*r1*r2*thetadot1*thetadot2*np.cos(theta1-theta2)
     ep = -(m1+m2)*g*r1*np.cos(theta1) - m2*g*r2*np.cos(theta2)
 
+    # Ensure that ek+ep is constant
     print(ek+ep)
 
     #return pivot, m1,m2 positions
