@@ -14,7 +14,7 @@ gravity = input("What planet?")
 gravties = {
     "Earth" : 9.8
 }
-g = gravties.get(gravity, "Earth")
+g = gravties.get(gravity, 9.8)
 m1 = int(input("Mass1 in kg?"))
 m2 = int(input("Mass2 in kg?"))
 r1 = int(input("Rope1 length in m?"))
