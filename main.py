@@ -24,7 +24,7 @@ theta2 = (int(input("Starting angle2 in degrees?")))*(np.pi/180)
 #This just means it starts at rest (no initial velocity)
 thetadot1 = 0
 thetadot2 = 0
-dt = 0.1
+dt = 0.001
 #energy list to calculate percentage error
 energies = []
 # calculate energy function which i need to put up here cuz then i call it for the expected value
@@ -87,7 +87,7 @@ def update(frame):
 def on_close(event):
     #error clac
     if energies:
-        error = ((max(energies) - min(energies))/2) / abs(expected_value) * 100
+        error = ((max(energies) - min(energies))) / abs(expected_value) * 100
         print(f"Energy error: {error:.4f}%")
         print(f"Max energy: {max(energies):.4f}")
         print(f"Min energy: {min(energies):.4f}")
