@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+
+
 gravity = input("What planet?")
 gravties = {
     "Earth" : 9.8
@@ -35,3 +37,8 @@ def update(frame):
 
     theta2 += thetadot2*dt
     theta1 += thetadot1*dt
+
+    x1 = r1*np.sin(theta1)
+    y1 = -r1*np.cos(theta1)
+    x2 = r2* np.sin(theta2) + r1*np.sin(theta1)
+    y2 = -r2*np.cos(theta2) - r1*np.cos(theta1)
