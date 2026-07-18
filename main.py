@@ -8,6 +8,9 @@ ax.set_xlim(-3, 3)
 ax.set_ylim(-3, 3)
 ax.set_aspect('equal')
 line, = ax.plot([], [], 'o-', lw=2)
+trail_x = []
+trail_y = []
+trail, = ax.plot([], [], '-', color='orange', lw=0.5, alpha=0.5)
 
 #Set up inputs
 gravity = input("What planet?")
@@ -56,6 +59,16 @@ def update(frame):
     x2 = r2* np.sin(theta2) + r1*np.sin(theta1)
     y2 = -r2*np.cos(theta2) - r1*np.cos(theta1)
 
+    trail_x.append(x2)
+    trail_y.append(y2)
+
+    # optional - limit trail length so it doesn't slow down over time
+    if len(trail_x) > 2000:
+        trail_x.pop(0)
+        trail_y.pop(0)
+
+    trail.set_data(trail_x, trail_y)
+
     #Calculates every frame and then after this function is passed, only the nth frame will be played
     #This makes sure the calculation has less error (at dt is still kept high) and the speed is faster
     for i in range(steps_per_frame):
@@ -86,7 +99,7 @@ def update(frame):
 
     #return pivot, m1,m2 positions
     line.set_data([0, x1, x2], [0, y1, y2])
-    return line,
+    return line,trail
 
 
 def on_close(event):
