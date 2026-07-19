@@ -67,6 +67,14 @@ def Derivatives (state):
 
     return np.array[thetadot1,thetadot2,thetaddot1,thetaddot2]
 
+def Runge_Kutta_4 (state,dt):
+    f1 = Derivatives(state)
+    f2 = Derivatives(state + (dt/2)*f1)
+    f3 = Derivatives(state+(dt/2)*f2)
+    f4 = Derivatives(state + (dt)*f3)
+
+    return state + (dt/6)*(f1+2*f2+2*f3+f4)
+
 
 def update(frame):
     global theta1, theta2, thetadot1, thetadot2
