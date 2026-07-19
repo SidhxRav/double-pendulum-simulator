@@ -32,6 +32,9 @@ thetadot2 = 0
 dt = 0.001
 #energy list to calculate percentage error
 energies = []
+state = np.array([theta1,theta2,thetadot1,thetadot2])
+thetainitial1 = theta1
+thetaintial2 = theta2
 # calculate energy function which i need to put up here cuz then i call it for the expected value
 def Calculate_energy(g, m1, m2, r1, r2, theta1, theta2, thetadot1,thetadot2):
     # KE of mass 1
@@ -65,7 +68,7 @@ def Derivatives (state):
 
     thetaddot1 = (a/b) - ((c/b)*thetaddot2)
 
-    return np.array[thetadot1,thetadot2,thetaddot1,thetaddot2]
+    return np.array([thetadot1,thetadot2,thetaddot1,thetaddot2])
 
 def Runge_Kutta_4 (state,dt):
     f1 = Derivatives(state)
@@ -77,7 +80,7 @@ def Runge_Kutta_4 (state,dt):
 
 
 def update(frame):
-    global theta1, theta2, thetadot1, thetadot2
+    global theta1, theta2, thetadot1, thetadot2,state
 
     #Calculate for the x and why values of the masses
     x1 = r1*np.sin(theta1)
@@ -98,6 +101,7 @@ def update(frame):
     #Calculates every frame and then after this function is passed, only the nth frame will be played
     #This makes sure the calculation has less error (at dt is still kept high) and the speed is faster
     for i in range(steps_per_frame):
+        state = Runge_Kutta_4(state,dt)
         '''#Set up the variables for solving theta double dots
         a = -(m1 +m2)*g*r1*np.sin(theta1) - m2*r1*r2*(thetadot2**2)*np.sin(theta1-theta2)
         b = (m1+m2)* (r1**2)
@@ -118,6 +122,7 @@ def update(frame):
         #Use euler integration again to find theta
         theta2 += thetadot2*dt
         theta1 += thetadot1*dt'''
+    theta1,theta2,thetadot1,thetadot2 = state
     # Ensure that energies is constant
     total_energy = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2 )
     print(total_energy)
@@ -138,6 +143,8 @@ def on_close(event):
         print(f"Max energy: {max(energies):.4f}")
         print(f"Min energy: {min(energies):.4f}")
         print(f"Samples collected: {len(energies)}")
+        print(f"Initial Angle 1: {thetainitial1:.2f}")
+        print(f"Initial Angle 2: {thetaintial2:.2f}")
         print(f"Playback Speed: x{steps_per_frame/30}")
 
 fig.canvas.mpl_connect('close_event', on_close)
