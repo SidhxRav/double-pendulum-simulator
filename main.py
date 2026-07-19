@@ -102,26 +102,6 @@ def update(frame):
     #This makes sure the calculation has less error (at dt is still kept high) and the speed is faster
     for i in range(steps_per_frame):
         state = Runge_Kutta_4(state,dt)
-        '''#Set up the variables for solving theta double dots
-        a = -(m1 +m2)*g*r1*np.sin(theta1) - m2*r1*r2*(thetadot2**2)*np.sin(theta1-theta2)
-        b = (m1+m2)* (r1**2)
-        c = m2*r1*r2*np.cos(theta1-theta2)
-        e = -m2*g*r2*np.sin(theta2) + m2*r1*r2*(thetadot1**2)*np.sin(theta1-theta2)
-        f = m2*(r2**2)
-        h = m2*r1*r2*np.cos(theta1-theta2)
-
-        #Set up theta double dots
-        thetaddot2 = (e-((a*h)/b))/(f-((c*h)/b))
-
-        thetaddot1 = (a/b) - ((c/b)*thetaddot2)
-        
-        #Use euler integration to find theta dots
-        thetadot2 += thetaddot2*dt
-        thetadot1 += thetaddot1*dt
-
-        #Use euler integration again to find theta
-        theta2 += thetadot2*dt
-        theta1 += thetadot1*dt'''
     theta1,theta2,thetadot1,thetadot2 = state
     # Ensure that energies is constant
     total_energy = Calculate_energy(g,m1,m2,r1,r2,theta1,theta2,thetadot1,thetadot2 )
